@@ -1,8 +1,0 @@
-
-2017-01-13 21:38:15 [player.c] {ATTENZIONE}: L'arbitro ha già fischiato la fine, giocata last minute di 4181 NON gestita
-
-______________
- 2017-01-13 21:38:16 [referee.c] TEMPO SCADUTO : GAME OVER, tempo giocato 30 secondi
-______________
-
-2017-01-13 21:38:16 [referee.c]Punteggio Finale A-B 2-1 

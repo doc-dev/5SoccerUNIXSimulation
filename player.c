@@ -30,7 +30,7 @@ int main(int argc,char*argv[]){
   }
   //provo a conquistare il possesso palla
   #ifdef DEBUG_MODE
-  dprintf(1,"\nSono il processo giocatore, e il mio pid è:%d ",getpid());
+  dprintf(1,"Sono il processo giocatore, e il mio pid è: %d\n",getpid());
   #endif
   //devo incrementare di 1 il semaforo se non è a posto
 
@@ -111,17 +111,9 @@ int main(int argc,char*argv[]){
 
 
 void handle_signal(int signal) {
-  //se rivevo il segnale devo gestire il punteggio
+  //Explicit Exit
   switch (signal){
     case SIGTERM :
-    tempo();
-    FILE * com = fopen("log.txt","w+");
-    setvbuf(com, NULL, _IONBF, 0);
-    fprintf(com,"\n%s [%s] {ATTENZIONE}: L'arbitro ha già fischiato la fine, giocata last minute di %d NON gestita\n",x,__FILE__,getpid());
-    fclose(com);
-    #ifdef DEBUG_MODE
-      dprintf(1,"\n%s [%s] {ATTENZIONE}: L'arbitro ha già fischiato la fine, giocata last minute di %d NON gestita\n",x,__FILE__,getpid());
-    #endif
     exit(0);
     break;
   }

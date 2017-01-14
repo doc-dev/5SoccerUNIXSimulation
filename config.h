@@ -1,4 +1,4 @@
-#define MATCH_LENGTH 30
+#define MATCH_LENGTH 15
 #define PERC_GOAL 40
 #define PERC_INJURY 30
 #define PERC_DRIBBLING 30

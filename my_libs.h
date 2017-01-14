@@ -17,7 +17,6 @@
 //Constants
 #define NUM_PROC 3
 #define NUM_PLAYER 5
-#define NUM_MSG  2
 #define MSG_MAX_SIZE 128
 #define GOAL 0
 #define DRIBBLING 1
@@ -30,7 +29,7 @@
 //End
 
 
-//#define DEBUG_MODE
+#define DEBUG_MODE
 
 #define GRAFICA3 int e;FILE *file2;file2 = fopen("goal.txt", "r");if (file2) {  while ((e = getc(file2)) != EOF) putchar(e);fflush(file2);fclose(file2);}
 

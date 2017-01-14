@@ -18,7 +18,7 @@ int main(int argc,char*argv[]){
   int queue = atoi(argv[1]);
   int ans = -1;
   sleep(1);
-  dprintf(1,"\nSono il processo FATO e ho il pid %d" ,getpid());
+  dprintf(1,"\n[%s] Sono il processo FATO e ho il pid %d\n" ,__FILE__,getpid());
   sa.sa_handler = &handle_signal;
   sa.sa_flags = 0;
   if (sigaction(SIGTERM, &sa, &sa_old) == -1) {
@@ -27,7 +27,7 @@ int main(int argc,char*argv[]){
   log_file = fopen("log.txt","a+");
   setvbuf(log_file, NULL, _IONBF, 0);
   tempo();
-  fprintf(log_file,"%s [%s] Tutto e' pronto per iniziare,si comincia !\n",x,__FILE__);
+  fprintf(log_file,"\n%s [%s] Tutto e' pronto per iniziare,si comincia !\n",x,__FILE__);
   //aspetto che qualcuno scriva sulla coda
   while (1) {
     if ((num_bytes = msgrcv(queue, &mybuf, MSG_MAX_SIZE,PLAYER_TO_FAITH, 0)) == -1) {
@@ -51,7 +51,7 @@ int main(int argc,char*argv[]){
         int r=0;
         case GOAL :
         r = 1 + (rand() % 100);
-        if(r<PERC_GOAL){
+        if(r<=PERC_GOAL){
           ans = 1;
           #ifdef DEBUG_MODE
             dprintf(1,"\nSono sempre il giocatore %d ,HO FATTO GOAL\n",player);
@@ -76,7 +76,7 @@ int main(int argc,char*argv[]){
 
         case DRIBBLING :
         r = 1 + (rand() % 100);
-        if(r>PERC_GOAL && r<PERC_GOAL+PERC_DRIBBLING) {
+        if(r<=PERC_DRIBBLING) {
           ans = 1;
           #ifdef DEBUG_MODE
             dprintf(1,"\nSono sempre il giocatore %d ,Ho dribblato un avversario",player);
@@ -100,7 +100,7 @@ int main(int argc,char*argv[]){
 
         case INJURY :
         r = 1 + (rand() % 100);
-        if(r>PERC_GOAL+PERC_DRIBBLING) {
+        if(r<=PERC_INJURY) {
           ans = 1;
           #ifdef DEBUG_MODE
             dprintf(1,"\nSono sempre il giocatore %d ,Mi sono infortunato",player);

@@ -135,7 +135,7 @@ void player_forker(int proc_num){
 
   #ifdef DEBUG_MODE
   sleep(1);
-  dprintf(1,"\n %s Array con i PIDs dei giocatori: %d %d %d %d %d\n",__FILE__,players_pid[0],players_pid[1],players_pid[2],players_pid[3],players_pid[4] );
+  dprintf(1,"\n\n [%s] Array con i PIDs dei giocatori: %d %d %d %d %d\n",__FILE__,players_pid[0],players_pid[1],players_pid[2],players_pid[3],players_pid[4] );
   #endif
 }
 
@@ -158,8 +158,8 @@ void handle_sigterm(int signal){
     for(int j=0;j<5;j++){
       kill(players_pid[j],SIGTERM);
     }
+    //Wait players for security reasons
     waitpid(-1, NULL, 0);
-    semctl(atoi(data[0]),0,IPC_RMID);  //remove the ball
     semctl(nproc,0,IPC_RMID); // remove the injury system
     kill(getpid(),SIGKILL);
     break;

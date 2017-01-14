@@ -38,7 +38,7 @@ int main(void){
 
   tempo();
   #ifdef DEBUG_MODE
-    dprintf(1,"%s [%s] L'arbitro fa scendere le 2 squadre sul terreno di gioco\n",x,__FILE__);
+    dprintf(1,"\n\n%s [%s] L'arbitro fa scendere le 2 squadre sul terreno di gioco\n",x,__FILE__);
     sleep(1);
   #else
     sleep(2);
@@ -79,13 +79,12 @@ int main(void){
   }
   #ifdef DEBUG_MODE
     sleep(1);
-    dprintf(1,"\n\n%s Array Con i PIDs delle squadre %d %d %d",__FILE__,team_pid[0],team_pid[1],team_pid[2]);
+    dprintf(1,"\n\n[%s] Array Con i PIDs delle squadre %d %d %d\n",__FILE__,team_pid[0],team_pid[1],team_pid[2]);
   #else
     sleep(2);
     GRAFICA2
   #endif
   //Release team sync semaphore,so we can start with player generation
-
   sops.sem_num = 0;
   sops.sem_flg = 0;
   sops.sem_op =  2;
@@ -98,7 +97,6 @@ int main(void){
 
   while(1){
     /* Action performed if SIGALRM or SIGUSR1 are received */
-
     if(alrm==1){
       semctl(sync1,0,IPC_RMID); //remove sync
       tempo();
@@ -122,10 +120,11 @@ int main(void){
       fclose(a);
       //Done
 
-      semctl(ball,0,IPC_RMID);
+      semctl(ball,0,IPC_RMID); //remove the ball
+
         sleep(1);
         dprintf(1,"\n\n\nGAME OVER, L'ARBITRO MANDA TUTTI A PRENDERE UN TE CALDO \n");
-        dprintf(1,"\nPunteggio Finale A-B %d-%d \n-------------------\n-------------\n",home,visitors);
+        dprintf(1,"\nPunteggio Finale A-B %d-%d \n-------------------\n\n",home,visitors);
 
       exit(EXIT_SUCCESS);
     }
