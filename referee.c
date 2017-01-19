@@ -1,7 +1,6 @@
 #include "header.h"
 
 //Functions setup
-void check();
 void handle_signal(int signal);
 void handle_sigalrm(int signal);
 //Setup End
@@ -18,7 +17,7 @@ int main(void){
   //Put key value into my structure
   char buf[32];
   sprintf (buf, "%d", ball);
-  args[4] = strdup (buf);
+  args[3] = strdup (buf);
   //done
 
   sync1 = semget(IPC_PRIVATE, 1, 0600 | IPC_CREAT);
@@ -97,12 +96,13 @@ int main(void){
 
   while(1){
     /* Action performed if SIGALRM or SIGUSR1 are received */
+    pause();
     if(alrm==1){
       semctl(sync1,0,IPC_RMID); //remove sync
       tempo();
       dprintf(1,"\n%s [%s] Tempo scaduto",x,__FILE__);
 
-      for(int j=0;j<3;j++){
+      for(int j=0;j<NUM_PROC;j++){
         kill(team_pid[j],SIGTERM);
       }
       //Wait teams and faith for security reason

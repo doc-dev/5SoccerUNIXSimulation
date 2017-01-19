@@ -60,6 +60,7 @@ int main(int argc,char*argv[]){
   player_forker(NUM_PLAYER);
 
   while (1) {
+    pause();
     if(broken==1){
       int injured=0;
       int com =0;
@@ -140,11 +141,9 @@ void player_forker(int proc_num){
 }
 
 void handle_signal(int signal) {
-  //se rivevo il segnale devo gestire il punteggio
+  //se rivevo il segnale devo gestire l'infortunio
   switch (signal){
     case SIGUSR2 :
-    //sostituisco
-    //leggo il pid del rotto
     broken=1;
     break;
   }
@@ -155,7 +154,7 @@ void handle_sigterm(int signal){
   switch (signal){
     case SIGTERM:
     msgctl(atoi(data[1]),IPC_RMID,NULL); //remove the queue
-    for(int j=0;j<5;j++){
+    for(int j=0;j<NUM_PLAYER;j++){
       kill(players_pid[j],SIGTERM);
     }
     //Wait players for security reasons
